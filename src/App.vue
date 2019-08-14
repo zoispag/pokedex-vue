@@ -1,28 +1,40 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="pokelist">
+      <Pokemon v-for="i in maxCount" :key="`Pokemon${i}`" :poke-id="i" />
+    </div>
+    <div class="flex mx-auto">
+      <button
+        class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        @click="loadMore"
+      >Load more {{ maxCount }}</button>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Pokemon from '@/components/Pokemon.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Pokemon
+  },
+  data () {
+    return {
+      maxCount: 50
+    }
+  },
+  methods: {
+    loadMore () {
+      this.maxCount += 50
+    }
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.pokelist {
+  @apply flex mx-auto max-w-full w-screen flex-wrap;
 }
 </style>
